@@ -231,12 +231,13 @@ class PIMPage(BasePage):
             if self.is_visible(*self.LOC_FIRST_NAME) or self.is_visible(*self.LOC_FIRST_NAME_ALT):
                 return
 
-            # Fall through to the direct add-employee URL if the list-page CTA is not available
+            # Fall through to the direct add-employee URL if the list-page CTA is not available.
+            # OrangeHRM uses the /web/index.php routes in the current app version.
             from urllib.parse import urlparse
 
             cur = urlparse(self.driver.current_url)
             base = f"{cur.scheme}://{cur.netloc}"
-            self.driver.get(base + "/index.php/pim/addEmployee")
+            self.driver.get(base + "/web/index.php/pim/addEmployee")
             if self.is_visible(*self.LOC_FIRST_NAME) or self.is_visible(*self.LOC_FIRST_NAME_ALT):
                 return
 
@@ -248,7 +249,7 @@ class PIMPage(BasePage):
 
                 cur = urlparse(self.driver.current_url)
                 base = f"{cur.scheme}://{cur.netloc}"
-                self.driver.get(base + "/index.php/pim/addEmployee")
+                self.driver.get(base + "/web/index.php/pim/addEmployee")
                 if self.is_visible(*self.LOC_FIRST_NAME):
                     return
                 wait_visible(self.driver, *self.LOC_FIRST_NAME_ALT, self.timeout)
