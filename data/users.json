@@ -1,0 +1,42 @@
+{
+  "valid_users": [
+    {
+      "username": "Admin",
+      "password": "admin123"
+    },
+    {
+      "username": "  Admin  ",
+      "password": "admin123",
+      "type": "trimmed_username"
+    }
+  ],
+  "invalid_users": [
+    {
+      "username": "InvalidUser",
+      "password": "admin123",
+      "type": "invalid_username"
+    },
+    {
+      "username": "Admin",
+      "password": "wrongPassword",
+      "type": "invalid_password"
+    },
+    {
+      "username": "<script>alert(1)</script>",
+      "password": "' OR '1'='1",
+      "type": "special_characters"
+    }
+  ],
+  "partial_empty": [
+    {
+      "username": "Admin",
+      "password": "",
+      "type": "password_empty"
+    },
+    {
+      "username": "",
+      "password": "admin123",
+      "type": "username_empty"
+    }
+  ]
+}
