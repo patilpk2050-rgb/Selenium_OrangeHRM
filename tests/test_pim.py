@@ -10,6 +10,10 @@ from pages.pim_page import PIMPage
 
 import time
 
+
+@pytest.mark.pim
+@pytest.mark.regression
+@pytest.mark.smoke
 def test_employee_list_loads_and_has_records(logged_in_driver):
     """FR-PIM-01: Employee List page must load and have at least one record."""
     dashboard = DashboardPage(logged_in_driver)
@@ -18,6 +22,9 @@ def test_employee_list_loads_and_has_records(logged_in_driver):
     pim = PIMPage(logged_in_driver)
     assert pim.is_employee_list_loaded(), "PIM Employee List did not load or no rows present."
 
+
+@pytest.mark.pim
+@pytest.mark.regression
 def test_add_employee_and_verify_search(logged_in_driver):
     """FR-PIM-02: A new employee must be successfully added through the Add Employee form and appear in PIM search results."""
     dashboard = DashboardPage(logged_in_driver)

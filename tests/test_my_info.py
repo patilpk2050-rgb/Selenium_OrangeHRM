@@ -6,6 +6,9 @@ from pages.dashboard_page import DashboardPage
 
 from pages.my_info_page import MyInfoPage
 
+
+@pytest.mark.my_info
+@pytest.mark.regression
 def test_personal_details_fields_visible(logged_in_driver):
     """FR-MI-01: Personal Details tab must load with key fields visible."""
     dashboard = DashboardPage(logged_in_driver)
@@ -23,6 +26,9 @@ def test_personal_details_fields_visible(logged_in_driver):
         assert page.is_present(*page.LOC_MIDDLE_NAME)
     assert page.is_visible(*page.LOC_LAST_NAME), "Last Name should be visible"
 
+
+@pytest.mark.my_info
+@pytest.mark.regression
 def test_contact_details_tab_fields_visible(logged_in_driver):
     """FR-MI-02: Contact Details tab must show address, telephone, mobile and work email."""
     dashboard = DashboardPage(logged_in_driver)

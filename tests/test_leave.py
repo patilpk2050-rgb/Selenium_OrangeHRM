@@ -8,6 +8,9 @@ from pages.dashboard_page import DashboardPage
 
 from pages.leave_page import LeavePage
 
+
+@pytest.mark.leave
+@pytest.mark.smoke
 def test_leave_list_loads_and_displays_table(logged_in_driver):
     """FR-LV-01: Leave List page must load and display the leave records table."""
     dashboard = DashboardPage(logged_in_driver)
@@ -15,6 +18,9 @@ def test_leave_list_loads_and_displays_table(logged_in_driver):
     page = LeavePage(logged_in_driver)
     assert page.is_leave_list_loaded(), "Leave List did not load or table not present"
 
+
+@pytest.mark.leave
+@pytest.mark.regression
 def test_leave_type_dropdown_populated(logged_in_driver):
     """FR-LV-02: The Leave Type dropdown must be populated with available options."""
     dashboard = DashboardPage(logged_in_driver)
@@ -30,6 +36,9 @@ def test_leave_type_dropdown_populated(logged_in_driver):
 
     assert selected, "Expected a non-empty Leave Type option"
 
+
+@pytest.mark.leave
+@pytest.mark.regression
 def test_assign_leave_success_for_future_dates(logged_in_driver):
     """FR-LV-03: Completing Assign Leave with valid future dates must succeed and be verifiable."""
     dashboard = DashboardPage(logged_in_driver)

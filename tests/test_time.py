@@ -6,6 +6,10 @@ from pages.time_page import TimePage
 
 from utils.wait_helpers import wait_url_contains, wait_visible
 
+
+@pytest.mark.time
+@pytest.mark.regression
+@pytest.mark.smoke
 def test_employee_timesheets_page_loads(logged_in_driver, config):
     """FR-TIME-01: Employee Timesheets page must load and display the search form with Employee Name field."""
     timesheets_url = f"{config['base_url']}/web/index.php/time/viewEmployeeTimesheet"
@@ -15,6 +19,9 @@ def test_employee_timesheets_page_loads(logged_in_driver, config):
     wait_url_contains(logged_in_driver, "viewEmployeeTimesheet", time_page.timeout)
     assert time_page.is_employee_timesheets_loaded(), "Employee Timesheets page did not load with required fields."
 
+
+@pytest.mark.time
+@pytest.mark.regression
 def test_project_info_customer_list_page_loads(logged_in_driver):
     """FR-TIME-02: Project Info > Customer List page must load and display the customer list table when accessed directly."""
     customer_list_url = "https://opensource-demo.orangehrmlive.com/web/index.php/time/viewCustomers"

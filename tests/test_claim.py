@@ -10,6 +10,7 @@ from pages.dashboard_page import DashboardPage
 
 from pages.claim_page import ClaimPage
 
+@pytest.mark.claim
 def test_submit_claim_page_loads_with_fields(logged_in_driver):
     """FR-CLAIM-01: Employee Claims page must load and display the records table."""
     dashboard = DashboardPage(logged_in_driver)

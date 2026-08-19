@@ -6,6 +6,8 @@ from pages.dashboard_page import DashboardPage
 
 from pages.maintenance_page import MaintenancePage
 
+
+@pytest.mark.maintenance
 def test_maintenance_requires_password_prompt(logged_in_driver):
     """FR-MAINT-01: Navigating to Maintenance must display a password confirmation prompt before granting access."""
     dashboard = DashboardPage(logged_in_driver)

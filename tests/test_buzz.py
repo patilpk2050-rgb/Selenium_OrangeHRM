@@ -6,6 +6,7 @@ from pages.dashboard_page import DashboardPage
 
 from pages.buzz_page import BuzzPage
 
+@pytest.mark.buzz
 def test_buzz_feed_loads_with_existing_post(logged_in_driver):
     """FR-BUZZ-01: Buzz feed page must load and display the post feed with at least one existing post."""
     dashboard = DashboardPage(logged_in_driver)
