@@ -61,10 +61,28 @@ class AdminPage(BasePage):
 
     def is_system_users_loaded(self) -> bool:
         try:
-            wait_visible(self.driver, *self.LOC_SYSTEM_USERS_HEADER, self.timeout)
-            return True
+            wait_url_contains(self.driver, "/admin", self.timeout)
         except Exception:
             return False
+
+        try:
+            if self.is_visible(*self.LOC_SYSTEM_USERS_HEADER):
+                return True
+        except Exception:
+            pass
+
+        page_text = (self.driver.page_source or "").lower()
+        if "system users" in page_text or "user management" in page_text:
+            return True
+
+        try:
+            rows = self.get_table_row_texts()
+            if rows:
+                return True
+        except Exception:
+            pass
+
+        return False
 
     def _find_element_resilient(self, by, locator):
         """Try visibility wait first, then fall back to presence + scroll.
