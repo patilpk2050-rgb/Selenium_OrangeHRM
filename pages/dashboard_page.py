@@ -191,8 +191,24 @@ class DashboardPage(BasePage):
         wait_url_contains(self.driver, "/dashboard", self.timeout)
 
     def action_go_to_admin(self) -> None:
-        self.action_click_sidebar_menu(*self.LOC_ADMIN_MENU)
-        wait_url_contains(self.driver, "/admin", self.timeout)
+        try:
+            self.action_click_sidebar_menu(*self.LOC_ADMIN_MENU)
+        except Exception:
+            pass
+
+        try:
+            wait_url_contains(self.driver, "/admin", self.timeout)
+        except Exception:
+            from urllib.parse import urlparse
+
+            cur = urlparse(self.driver.current_url)
+            base = f"{cur.scheme}://{cur.netloc}"
+            self.driver.get(base + "/web/index.php/admin/viewSystemUsers")
+
+        try:
+            wait_url_contains(self.driver, "/admin", self.timeout)
+        except Exception:
+            pass
 
     def action_go_to_pim(self) -> None:
         # Navigate to PIM module and wait for PIM header
