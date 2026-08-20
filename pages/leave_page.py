@@ -1,4 +1,5 @@
 from __future__ import annotations
+from time import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -228,17 +229,39 @@ class LeavePage(BasePage):
 
 
     def open_assign_leave(self) -> None:
+        """Click the Assign Leave button and wait for the form to load."""
+        import time
+        
         try:
             self.action_click(*self.LOC_ASSIGN_BUTTON)
+        except Exception:
+            try:
+                self.action_js_click(*self.LOC_ASSIGN_BUTTON)
+            except Exception:
+                pass
+        
+        # Give the form time to load after clicking
+        time.sleep(0.5)
+        
+        # Try to dismiss any blocking overlays that might cover the form
+        try:
+            self.action_dismiss_blocking_overlays()
         except Exception:
             pass
 
     def is_assign_form_loaded(self) -> bool:
+        """Check if the Assign Leave form is fully loaded with all required fields."""
+        import time
+    
         try:
-            wait_visible(self.driver, *self.LOC_ASSIGN_EMPLOYEE, self.timeout)
-            wait_visible(self.driver, *self.LOC_ASSIGN_LEAVE_TYPE, self.timeout)
-            wait_visible(self.driver, *self.LOC_ASSIGN_FROM, self.timeout)
-            wait_visible(self.driver, *self.LOC_ASSIGN_TO, self.timeout)
+            # Small delay to ensure form rendering is complete
+            time.sleep(0.3)
+        
+            # Check all required form fields are visible with extended timeout
+            wait_visible(self.driver, *self.LOC_ASSIGN_EMPLOYEE, max(20, self.timeout))
+            wait_visible(self.driver, *self.LOC_ASSIGN_LEAVE_TYPE, max(20, self.timeout))
+            wait_visible(self.driver, *self.LOC_ASSIGN_FROM, max(20, self.timeout))
+            wait_visible(self.driver, *self.LOC_ASSIGN_TO, max(20, self.timeout))
             return True
         except Exception:
             return False
