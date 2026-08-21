@@ -119,12 +119,6 @@ pytest tests/test_login.py -v
 pytest -m smoke
 ```
 
-### Run Authentication Tests
-
-```bash
-pytest -m auth
-```
-
 ### Generate HTML Report
 
 ```bash
